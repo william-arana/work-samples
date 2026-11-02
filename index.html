@@ -13,10 +13,10 @@
 :root{--bg:#f4f6f8;--panel:#fff;--ink:#1c2630;--muted:#5e6b76;--line:#d5dde2;--accent:#2c6db0}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Barlow,system-ui,sans-serif}
-.wrap{max-width:860px;margin:0 auto;padding:48px 20px 64px}
+.wrap{max-width:1080px;margin:0 auto;padding:48px 20px 64px}
 h1{font:700 40px/1.05 "Barlow Condensed",sans-serif;margin:0 0 8px}
 .lede{color:var(--muted);margin:0 0 32px;max-width:620px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
 a.card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;transition:border-color .15s,box-shadow .15s}
 a.card:hover,a.card:focus-visible{border-color:var(--accent);box-shadow:0 8px 24px -14px rgba(28,38,48,.45);outline:none}
 .thumb{height:180px;background:#0b0f14 center/cover no-repeat;display:flex;align-items:center;justify-content:center}
@@ -37,11 +37,15 @@ footer a{color:var(--accent)}
 <body>
 <div class="wrap">
   <h1>Work samples</h1>
-  <p class="lede">Two things I built as an SDR selling to HVAC, plumbing and electrical contractors. Both are demo copies: the companies, contacts and numbers are made up, and every button still works.</p>
+  <p class="lede">Two things I built as an SDR selling to HVAC, plumbing and electrical contractors, with the Day Board shown both mid-morning and at end of day. All three are demo copies: the companies, contacts and numbers are made up, and every button still works.</p>
   <div class="grid">
-    <a class="card" href="day-board/">
-      <div class="thumb" style="background-image:url(day-board-thumb.jpg);background-position:left top" aria-hidden="true"></div>
-      <div class="body"><h2>Day Board</h2><p>My whole workday on one screen: an 80 row call list in time zone blocks, live dial tracking, a master note for every account, nearby customer references, and updates that wrote back to the CRM.</p><div class="go">Open the board →</div></div>
+    <a class="card" href="in-progress-board/">
+      <div class="thumb" style="background-image:url(in-progress-thumb.jpg);background-position:left top" aria-hidden="true"></div>
+      <div class="body"><h2>Day Board, in progress</h2><p>My whole workday on one screen, 10 calls in: an 80 row call list in time zone blocks, live dial tracking, a master note for every account, nearby customer references, and updates that wrote back to the CRM.</p><div class="go">Open the board →</div></div>
+    </a>
+    <a class="card" href="end-of-day-board/">
+      <div class="thumb" style="background-image:url(end-of-day-thumb.jpg);background-position:left top" aria-hidden="true"></div>
+      <div class="body"><h2>Day Board, end of day</h2><p>The same board after the 3:30 PM run: every call checked off, a review of each conversation, flagged mislogs, and the CRM changes waiting on my approval.</p><div class="go">Open the board →</div></div>
     </a>
     <a class="card" href="prospect-page/">
       <div class="thumb" style="background-image:url(prospect-og.jpg)" aria-hidden="true"></div>
