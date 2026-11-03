@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Work Samples | William Arana</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Tools and pages I built as an SDR: a live call board and personalized prospect pages.">
+<meta name="description" content="Tools and pages I built as an SDR: a live call board, personalized prospect pages, and a write-up of the AI system and team rollout.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Barlow,sy
 .wrap{max-width:1080px;margin:0 auto;padding:48px 20px 64px}
 h1{font:700 40px/1.05 "Barlow Condensed",sans-serif;margin:0 0 8px}
 .lede{color:var(--muted);margin:0 0 32px;max-width:620px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:18px}
 a.card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;transition:border-color .15s,box-shadow .15s}
 a.card:hover,a.card:focus-visible{border-color:var(--accent);box-shadow:0 8px 24px -14px rgba(28,38,48,.45);outline:none}
 .thumb{height:180px;background:#0b0f14 center/cover no-repeat;display:flex;align-items:center;justify-content:center}
@@ -37,7 +37,7 @@ footer a{color:var(--accent)}
 <body>
 <div class="wrap">
   <h1>Work samples</h1>
-  <p class="lede">Two things I built as an SDR selling to HVAC, plumbing and electrical contractors, with the Day Board shown both mid-morning and at end of day. All three are demo copies: the companies, contacts and numbers are made up, and every button still works.</p>
+  <p class="lede">Things I built as an SDR selling to HVAC, plumbing and electrical contractors: the Day Board shown both mid-morning and at end of day, a prospect page, and a write-up of the whole system and how I started rolling it out to my team. The boards and page are demo copies: the companies, contacts and numbers are made up, and every button still works.</p>
   <div class="grid">
     <a class="card" href="in-progress-board/">
       <div class="thumb" style="background-image:url(in-progress-thumb.jpg);background-position:left top" aria-hidden="true"></div>
@@ -50,6 +50,10 @@ footer a{color:var(--accent)}
     <a class="card" href="prospect-page/">
       <div class="thumb" style="background-image:url(prospect-og.jpg)" aria-hidden="true"></div>
       <div class="body"><h2>Prospect page</h2><p>A personalized mobile page I built for each account before a call, with the contractor's logo on the thermostat, app and dashboard. Generated from the company logo with a script I wrote.</p><div class="go">Open the page →</div></div>
+    </a>
+    <a class="card" href="rollout/william-arana-ai-sdr-system-and-team-rollout.pdf">
+      <div class="thumb" style="background-image:url(rollout-thumb.jpg);background-position:center top;background-color:#fff" aria-hidden="true"></div>
+      <div class="body"><h2>AI system and team rollout</h2><p>A 10-page write-up of the AI SDR system I built in Claude and how I started rolling it out: the pilot group, approval tiers and guardrails, a three-phase rollout plan, onboarding and what to measure. Screenshots use demo data.</p><div class="go">Open the PDF →</div></div>
     </a>
   </div>
   <footer>William Arana · <a href="mailto:william_arana@yahoo.com">william_arana@yahoo.com</a> · <a href="https://www.linkedin.com/in/williamarana">LinkedIn</a></footer>
