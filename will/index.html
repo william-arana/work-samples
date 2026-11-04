@@ -25,7 +25,7 @@ body{min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--text);
   font-family:serif;line-height:1.5;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   padding:32px 16px calc(32px + env(safe-area-inset-bottom))}
-.card{width:100%;max-width:480px;background:var(--card);border:1px solid var(--line);border-radius:12px;
+.card{width:100%;max-width:480px;background:var(--card);border:1px solid var(--line);border-radius:6px;
   box-shadow:var(--shadow);padding:32px 24px 24px;position:relative;overflow:hidden}
 .card:before{content:"";position:absolute;inset:0 0 auto;height:6px;background:var(--accent)}
 .top{text-align:center}
@@ -36,12 +36,12 @@ h1{font-family:serif;font-size:26px;font-weight:700;letter-spacing:-.015em;line-
 .open{display:inline-block;margin-top:10px;font-size:12.5px;font-weight:600;color:var(--accent-d);background:var(--accent-soft);border-radius:999px;padding:5px 12px}
 .lede{margin-top:20px;font-size:16px;font-weight:600;line-height:1.4;text-align:center;text-wrap:balance}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
-.stat{background:var(--shade);border-radius:7px;padding:10px 6px;text-align:center}
+.stat{background:var(--shade);border-radius:4px;padding:10px 6px;text-align:center}
 .stat b{display:block;font-family:serif;font-size:20px;line-height:1.1}
 .stat span{display:block;font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.3}
 .about{margin-top:16px;font-size:14.5px;color:#3a4740;display:grid;gap:10px}
 .about b{color:var(--text)}
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;height:52px;border-radius:7px;
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;height:52px;border-radius:4px;
   font-weight:600;font-size:15.5px;text-decoration:none;color:var(--text);transition:transform .12s,box-shadow .12s,border-color .12s}
 .btn:active{transform:scale(.98)}
 .btn svg{width:20px;height:20px;flex:none}
@@ -54,7 +54,7 @@ h1{font-family:serif;font-size:26px;font-weight:700;letter-spacing:-.015em;line-
 .links{display:grid;gap:10px;margin-top:10px}
 .links .btn{justify-content:flex-start;padding:0 16px}
 .links .btn small{margin-left:auto;font-weight:500;font-size:12.5px;color:var(--muted)}
-.tile{display:block;border:1px solid var(--line);border-radius:8px;overflow:hidden;text-decoration:none;color:var(--text);background:var(--bg);transition:border-color .12s,transform .12s}
+.tile{display:block;border:1px solid var(--line);border-radius:4px;overflow:hidden;text-decoration:none;color:var(--text);background:var(--bg);transition:border-color .12s,transform .12s}
 .tile:hover{border-color:var(--accent)}
 .tile:active{transform:scale(.99)}
 .tile img{display:block;width:100%;height:auto;aspect-ratio:40/21;object-fit:cover}
@@ -66,30 +66,26 @@ h1{font-family:serif;font-size:26px;font-weight:700;letter-spacing:-.015em;line-
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* work samples card */
-.work{margin-top:22px;border:1px solid var(--line);border-radius:9px;background:var(--shade);padding:16px}
+.work{margin-top:22px;border:1px solid var(--line);border-radius:5px;background:var(--shade);padding:16px}
 .work h2{font-family:serif;font-size:17px;font-weight:600;line-height:1.25}
 .work .sub{font-size:13.5px;color:var(--muted);margin-top:3px}
 .badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--accent-d);background:var(--accent-soft);border-radius:999px;padding:3px 9px;margin-left:6px;vertical-align:2px}
 .wgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.w{display:block;text-decoration:none;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:7px;overflow:hidden;transition:border-color .12s,transform .12s}
+.w{display:block;text-decoration:none;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:4px;overflow:hidden;transition:border-color .12s,transform .12s}
 .w:hover{border-color:var(--accent)}
 .w:active{transform:scale(.98)}
 .w i{display:block;aspect-ratio:16/10;background:#fff center top/cover no-repeat;border-bottom:1px solid var(--line)}
 .w b{display:block;font-size:13.5px;padding:8px 10px 0;line-height:1.25}
 .w small{display:block;font-size:12px;color:var(--muted);padding:2px 10px 9px;line-height:1.3}
 .work .primary{margin-top:12px}
-.col{min-width:0}
-@media (min-width:900px){
-  body{padding:48px 32px}
-  .card{max-width:1040px;padding:40px 40px 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:40px;align-items:start}
-  .col.right .work{margin-top:0}
-  .foot{grid-column:1/-1}
+@media (min-width:700px){
+  .card{max-width:600px;padding:40px 36px 30px}
 }
+
 </style>
 </head>
 <body>
 <main class="card">
-<div class="col left">
   <div class="top">
     <img class="photo" src="will.jpg" alt="William Arana" width="116" height="116">
     <h1>William Arana</h1>
@@ -111,30 +107,6 @@ h1{font-family:serif;font-size:26px;font-weight:700;letter-spacing:-.015em;line-
     <p><b>Previously:</b> Yaamava' VIP Services, LA Dodgers fellow (15 selected of ~7,000 applicants), Verizon. Bilingual English/Spanish.</p>
   </div>
 
-
-
-  <div class="row">
-    <a class="btn sec" href="tel:+15629220639" aria-label="Call William">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      Call
-    </a>
-    <a class="btn sec" href="sms:+15629220639" aria-label="Text William">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      Text
-    </a>
-    <a class="btn sec" href="mailto:william_arana@yahoo.com" aria-label="Email William">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
-      Email
-    </a>
-  </div>
-  <div class="links">
-    <a class="btn sec" href="https://www.linkedin.com/in/williamarana" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-      LinkedIn <small>williamarana</small>
-    </a>
-  </div>
-</div>
-<div class="col right">
   <section class="work" aria-labelledby="work-h">
     <h2 id="work-h">Work samples <span class="badge">Live demos</span></h2>
     <p class="sub">Working copies of the tools I built at Nuve. Click around, they run on sample data.</p>
@@ -149,13 +121,33 @@ h1{font-family:serif;font-size:26px;font-weight:700;letter-spacing:-.015em;line-
       See all work samples
     </a>
   </section>
+
+  <div class="row">
+    <a class="btn sec" href="tel:+15629220639" aria-label="Call William">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Call
+    </a>
+    <a class="btn sec" href="sms:+15629220639" aria-label="Text William">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Text
+    </a>
+    <a class="btn sec" href="mailto:william_arana@yahoo.com" aria-label="Email William">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+      Email
+    </a>
+
+  </div>
   <div class="links">
+    <a class="btn sec" href="https://www.linkedin.com/in/williamarana" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+      LinkedIn <small>williamarana</small>
+    </a>
     <a class="tile" href="https://william-arana.github.io/NFL_stats/" target="_blank" rel="noopener">
       <img src="nfl-og.jpg" alt="NFL_stats: waiver board, matchups, every nflverse stat and live headlines" width="800" height="420" loading="lazy">
       <span><b>NFL stats site</b><small>Built on nflverse data</small></span>
     </a>
   </div>
-</div>
+
   <p class="foot"><a href="mailto:william_arana@yahoo.com">william_arana@yahoo.com</a> · <a href="tel:+15629220639">(562) 922-0639</a></p>
 </main>
 </body>
