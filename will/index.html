@@ -82,6 +82,13 @@ h1{font-family:serif;font-size:26px;font-weight:700;letter-spacing:-.015em;line-
   .card{max-width:600px;padding:40px 36px 30px}
 }
 
+
+/* copy toast */
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;pointer-events:none;
+  background:var(--accent);color:#fdfcf9;border-radius:4px;padding:11px 16px;font-size:14.5px;box-shadow:0 12px 28px -14px rgba(31,77,58,.8);
+  transition:opacity .18s,transform .18s;display:flex;gap:14px;align-items:center;white-space:nowrap;z-index:10}
+.toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.toast a{color:#cfe0d5;text-decoration:underline}
 </style>
 </head>
 <body>
@@ -150,5 +157,38 @@ h1{font-family:serif;font-size:26px;font-weight:700;letter-spacing:-.015em;line-
 
   <p class="foot"><a href="mailto:william_arana@yahoo.com">william_arana@yahoo.com</a> · <a href="tel:+15629220639">(562) 922-0639</a></p>
 </main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-msg"></span><a id="toast-link" href="#" hidden></a></div>
+<script>
+(function(){
+  var EMAIL='william_arana@yahoo.com', PHONE='(562) 922-0639';
+  var touch = window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  var toast=document.getElementById('toast'), msg=document.getElementById('toast-msg'), link=document.getElementById('toast-link'), t;
+  function show(text, href, label){
+    msg.textContent=text;
+    if(href){link.href=href;link.textContent=label;link.hidden=false;}else{link.hidden=true;}
+    toast.classList.add('show'); clearTimeout(t); t=setTimeout(function(){toast.classList.remove('show');},3200);
+  }
+  function copy(text){
+    if(navigator.clipboard && window.isSecureContext){ return navigator.clipboard.writeText(text); }
+    return new Promise(function(res,rej){
+      var ta=document.createElement('textarea'); ta.value=text; ta.setAttribute('readonly','');
+      ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy') ? res() : rej(); }catch(e){ rej(e); } ta.remove();
+    });
+  }
+  document.querySelectorAll('a[href^="mailto:"],a[href^="tel:"],a[href^="sms:"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var href=a.getAttribute('href'), isMail=href.indexOf('mailto:')===0;
+      if(!isMail && touch) return;            // phones: let Call/Text open natively
+      e.preventDefault();
+      var text=isMail?EMAIL:PHONE;
+      copy(text).then(function(){
+        show((isMail?'Email copied: ':'Number copied: ')+text, isMail?href:null, 'Open mail app');
+      },function(){ window.location.href=href; });
+    });
+  });
+})();
+</script>
 </body>
 </html>
