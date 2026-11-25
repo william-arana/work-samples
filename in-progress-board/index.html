@@ -269,7 +269,11 @@ const MCP={
     /* replays the day's Nooks calls so the rows check off live */
     const base=(()=>{const now=new Date();const pt=new Date(now.toLocaleString("en-US",{timeZone:"America/Los_Angeles"}));const off=now.getTime()-pt.getTime();const mid=new Date(pt);mid.setHours(6,0,0,0);return mid.getTime()+off})();
     const all=D.CALLS.map((c,i)=>({id:"n"+i,to:c.to,time:new Date(base+c.min*60000).toISOString(),duration:c.duration,callDispositionName:c.dispName}));
-    let n=0;const step=()=>{n=Math.min(all.length,n+2);cb({type:"data",result:{payload:{data:all.slice(0,n).reverse()},cache:{storedAt:Date.parse(all[n-1].time)}}});if(n<all.length)setTimeout(step,110)};
+    /* dials added with the "Complete dial (demo)" button, kept until Reset demo */
+    let extra=[];try{extra=JSON.parse(localStorage.getItem(LS+"dials")||"[]")}catch(e){extra=[]}
+    let n=0;const emit=()=>{const list=all.slice(0,n).concat(n>=all.length?extra:[]);cb({type:"data",result:{payload:{data:list.slice().reverse()},cache:{storedAt:list.length?Date.parse(list[list.length-1].time):Date.now()}}})};
+    const step=()=>{n=Math.min(all.length,n+2);emit();if(n<all.length)setTimeout(step,110);else window.__demoReplayDone=true};
+    window.__demoDial=c=>{extra.push(c);try{localStorage.setItem(LS+"dials",JSON.stringify(extra))}catch(e){}if(n>=all.length)emit()};
     setTimeout(step,700);
   }
 };
@@ -1136,4 +1140,63 @@ const DEF=window.__DEMO__.DEFAULT;
 </script>
 </body>
 </html>
+<style>
+#demodial{position:absolute;top:calc(100% + 10px);right:16px;z-index:14;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:7px 14px;font:600 14px "Barlow",sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+#demodial:hover{border-color:var(--ink)}
+#demodial:disabled{opacity:.75;cursor:default}
+#demodial.ring{animation:ddring 1s ease-in-out infinite}
+@keyframes ddring{50%{box-shadow:0 0 0 4px rgba(0,0,0,.08)}}
+tr.call.dialing{outline:2px solid var(--cold);outline-offset:-2px}
+@media (prefers-reduced-motion:reduce){#demodial.ring{animation:none}}
+</style>
+<script>
+/* ===== DEMO: Complete dial (demo) — simulates one Nooks dial on the next row ===== */
+(()=>{
+const bar=document.getElementById("dialbar");if(!bar)return;
+const btn=document.createElement("button");btn.type="button";btn.id="demodial";btn.textContent="📞 Complete dial (demo)";
+btn.title="Simulates Nooks dialing the next row on the list";bar.appendChild(btn);
+/* sit in the gray space under the bar; drop below the demo notice while it's on screen */
+const place=()=>{const n=document.getElementById("demobar"),bt=bar.getBoundingClientRect().bottom;let top=bt+10;if(n){const nb=n.getBoundingClientRect().bottom;if(nb>bt-2)top=nb+10}btn.style.top=(top-bar.getBoundingClientRect().top)+"px"};
+addEventListener("scroll",place,{passive:true});addEventListener("resize",place);setTimeout(place,50);place();
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const toast=(msg,ms)=>{let t=document.getElementById("demotoast");if(!t){t=document.createElement("div");t.id="demotoast";document.body.appendChild(t)}t.textContent=msg;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("on"),ms||4200)};
+const OUT=[ /* weights roughly match a real cold day */
+  {w:62,name:"No answer/voicemail",d:[14,42],open:false},
+  {w:18,name:"Connected",d:[45,150],open:true},
+  {w:10,name:"DM Reached",d:[90,300],open:true},
+  {w:7,name:"Follow-Up Required",d:[180,480],open:true},
+  {w:3,name:"Demo booked",d:[300,600],open:true}];
+const pick=()=>{let r=Math.random()*100;for(const o of OUT){if((r-=o.w)<0)return o}return OUT[0]};
+const fmtD=s=>s>=60?Math.floor(s/60)+"m"+String(s%60).padStart(2,"0")+"s":s+"s";
+const first=t=>String(t||"").split(/[\s(]/)[0]||"the owner";
+const nextRow=()=>[...document.querySelectorAll("tr.call")].find(tr=>tr.style.display!=="none"&&!tr.classList.contains("removing")&&tr.dataset.ph&&!(tr.querySelector(".live")||{}).textContent&&!(tr.querySelector('input[type="checkbox"]')||{}).checked);
+const NOTE={
+  "Connected":n=>`Talked to ${n}, busy in the field, said call back Tuesday 9 AM`,
+  "DM Reached":n=>`${n} picked up, interested in the branded app, wants pricing by email, call back Thursday 10 AM`,
+  "Follow-Up Required":n=>`${n} liked the idea, wants a mockup with their logo first, follow up Monday 9 AM`,
+  "Demo booked":n=>`Demo booked with ${n} for Wednesday 10:30 AM local, bringing the ops manager`};
+btn.addEventListener("click",async()=>{
+  if(!window.__demoDial||!window.__demoReplayDone){toast("Nooks is still loading this morning's calls. Try again in a second.");return}
+  const tr=nextRow();
+  if(!tr){toast("Every row on today's list has been dialed. Reset demo to start over.");return}
+  btn.disabled=true;btn.classList.add("ring");
+  tr.classList.add("dialing");tr.scrollIntoView({behavior:"smooth",block:"center"});
+  const co=tr.dataset.co,ph=tr.dataset.ph,nm=first(tr.dataset.ctn);
+  btn.textContent="📞 Dialing "+co+"…";
+  await sleep(1400);
+  const o=pick(),dur=Math.round(o.d[0]+Math.random()*(o.d[1]-o.d[0]));
+  btn.textContent="📞 Nooks is logging the call…";
+  await sleep(800);
+  window.__demoDial({id:"x"+Date.now(),to:ph,time:new Date().toISOString(),duration:dur,callDispositionName:o.name});
+  await sleep(250);
+  tr.classList.remove("dialing");btn.classList.remove("ring");btn.disabled=false;btn.textContent="📞 Complete dial (demo)";
+  const cnt=(document.getElementById("dbn")||{}).textContent||"";
+  if(!o.open){toast(`Nooks logged “${o.name}” (${fmtD(dur)}) on ${co}. Row checked off, dials now ${cnt}/75. On to the next one.`);return}
+  toast(`${o.name} with ${nm} at ${co} (${fmtD(dur)}). Row checked off. Opening Update account so you can log what happened.`,5200);
+  const ob=tr.querySelector(".open");if(ob)ob.click();
+  for(let i=0;i<30;i++){await sleep(150);const m=document.querySelector('#drawer .modes [data-m="upd"]');if(m&&document.getElementById("drawer").classList.contains("on")){m.click();break}}
+  await sleep(200);const q=document.getElementById("upq");if(q&&!q.value.trim()){q.value=NOTE[o.name](nm);q.dispatchEvent(new Event("input"));q.focus()}
+});
+})();
+</script>
 </body></html>
