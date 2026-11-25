@@ -755,7 +755,7 @@ async function apply(tr,ci){
       if(CTX.note){let b=CTX.note.properties.hs_note_body||"";
         b=b.replace(/Last updated:[^<]*/,"Last updated: "+n.mdyy+" by William Arana");
         if(nx)b=b.replace(/Next step:[^<]*/,"Next step: "+esc(nx));
-        b+=`<p>${esc(line)}</p>`;
+        {const nl=`<p>${esc(line)}</p>`,hm=/<p>\s*(?:<strong>)?\s*HISTORY:?\s*(?:<\/strong>)?\s*<\/p>/i.exec(b);b=hm?b.slice(0,hm.index+hm[0].length)+nl+b.slice(hm.index+hm[0].length):b+nl;}
         await M({updateRequest:{objects:[{objectType:"NOTE",objectId:Number(CTX.note.id),properties:{hs_note_body:b}}]}});
       }else{
         const b=`<p><strong>MASTER NOTE — ${esc(tr.dataset.co)}</strong></p><p>Last updated: ${n.mdyy} by William Arana</p><p><br></p><p><strong>SNAPSHOT</strong></p><p>Status: Next step: ${esc(nx||"see latest task")}</p><p><br></p><p><strong>HISTORY</strong></p><p>${esc(line)}</p>`;
